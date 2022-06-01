@@ -1,17 +1,14 @@
 package com.pts.findInternship.Entity;
 
-import java.sql.Date;
-import java.util.Set;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,11 +18,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String userId;
 	@Column(name = "username",unique = true, nullable = false)
 	private String username;
 	private String password;
@@ -35,7 +30,9 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private Date date;
+	private Date createDate;
 	private String status;
-	private Role roles;
+	@OneToOne
+	@JoinColumn(name = "Role_Id")
+	private Role role;
 }

@@ -8,27 +8,25 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "Partner")
-public class Partner {
+@Table(name = "JobPosition")
+public class JobPosition {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String position;
-	@OneToOne
-	@JoinColumn(name = "username")
-	private User user;
-	@OneToMany(mappedBy = "partner",fetch = FetchType.LAZY)
-	private Set<DemandUni> demandUni = new HashSet<DemandUni>();
+	private String name;
+	@OneToMany(mappedBy = "position",fetch = FetchType.LAZY)
+	private Set<DemandUni> demandUnis = new HashSet<DemandUni>();
+	@OneToMany(mappedBy = "jobposition",fetch = FetchType.LAZY)
+	private Set<Job> jobs = new HashSet<Job>();
 }

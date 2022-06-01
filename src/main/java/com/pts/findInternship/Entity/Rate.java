@@ -1,16 +1,13 @@
 package com.pts.findInternship.Entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -20,15 +17,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "Partner")
-public class Partner {
+@Table(name = "Rate")
+public class Rate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String position;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "username")
 	private User user;
-	@OneToMany(mappedBy = "partner",fetch = FetchType.LAZY)
-	private Set<DemandUni> demandUni = new HashSet<DemandUni>();
+	@ManyToOne
+	@JoinColumn(name = "CompanyId")
+	private Company company;
+	private int score;
+	private String comment;
+	private Date createDate;
+	
 }
