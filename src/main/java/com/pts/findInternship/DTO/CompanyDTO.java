@@ -1,6 +1,11 @@
+/**
+ * 
+ */
 package com.pts.findInternship.DTO;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,9 +21,10 @@ public class CompanyDTO {
 	private String website;
 	private String email;
 	private String phone;
-	//Location
 	//HR
-	//type
-	private Date date;
+	private int type;
+	private LocalDate date;
 	private String status;
+	private Set<RateDTO> rates = new HashSet<RateDTO>();
+	
 }

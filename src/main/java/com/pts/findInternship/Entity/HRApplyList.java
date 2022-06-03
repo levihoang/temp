@@ -1,7 +1,9 @@
 package com.pts.findInternship.Entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +31,9 @@ public class HRApplyList {
 	@ManyToOne
 	@JoinColumn(name = "HrId")
 	private HR hr;
-	private Date date;
+	@Column(name = "date",columnDefinition = "DATE")
+	private LocalDate date;
 	private String status;
+	@Column(name = "note",columnDefinition = "NVARCHAR(255)")
 	private String note;
 }

@@ -1,4 +1,4 @@
-package com.pts.findInternship;
+package com.r2s.findInternship;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

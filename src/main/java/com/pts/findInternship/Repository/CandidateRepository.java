@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.pts.findInternship.Entity.Candidate;
 @Repository
 public interface CandidateRepository extends JpaRepository<Candidate, Integer> {
-
+		
 }

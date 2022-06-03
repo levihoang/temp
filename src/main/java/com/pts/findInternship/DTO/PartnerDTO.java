@@ -1,5 +1,7 @@
 package com.pts.findInternship.DTO;
 
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class PartnerDTO {
-
-	private int id;
 	private String position;
 	private UserDTO user;
+	private Set<DemandUniDTO> demandUni;
 }

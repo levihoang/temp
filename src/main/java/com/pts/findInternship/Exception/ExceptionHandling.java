@@ -14,4 +14,17 @@ public class ExceptionHandling {
 	{
 		return new ResponeMessage(404, ex.getMessage());
 	}
+	//Exception with SQL
+	@ExceptionHandler(value = InternalServerErrorException.class)
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public ResponeMessage handlerInternalServerError( InternalServerErrorException ex)
+	{
+		return new ResponeMessage(500, ex.getMessage());
+	}
+	@ExceptionHandler(value = ExceptionCustom.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public ResponeMessage handlerExceptionCustom(ExceptionCustom ex)
+	{
+		return new ResponeMessage(401, ex.getMessage());
+	}
 }

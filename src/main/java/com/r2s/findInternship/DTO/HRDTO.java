@@ -1,18 +1,16 @@
-/**
- * 
- */
-package com.pts.findInternship.DTO;
+package com.r2s.findInternship.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 
-public class EmployerDTO {
-
+public class HRDTO {
 	private int id;
-	private String name;
-	
+	private UserDTO user;
+	private String position;
+	private CompanyDTO company;
 }

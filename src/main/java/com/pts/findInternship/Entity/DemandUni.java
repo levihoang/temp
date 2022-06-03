@@ -1,7 +1,9 @@
 package com.pts.findInternship.Entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,11 +36,16 @@ public class DemandUni {
 	@ManyToOne
 	@JoinColumn(name = "PositionId")
 	private JobPosition position;
+	@Column(name = "requirement",columnDefinition = "NVARCHAR(500)",nullable = true)
 	private String requirement;
+	@Column(name = "other_info",columnDefinition = "NVARCHAR(500)")
 	private String ortherInfo;
+	@Column(name = "start",columnDefinition = "DATE")
 	private Date start;
+	@Column(name = "end",columnDefinition = "DATE")
 	private Date end;
 	private String students;
-	private Date createDate;
+	@Column(name = "create_date",columnDefinition = "DATE")
+	private LocalDate createDate;
 	private boolean status;
 }

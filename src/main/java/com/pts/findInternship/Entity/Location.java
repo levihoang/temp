@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -44,7 +45,7 @@ public class Location {
 			)
 	private Set<University> universities = new HashSet<University>();
 	
-	@OneToMany(mappedBy = "locationjob",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "locationjob",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
 	private Set<Job> jobs = new HashSet<Job>();
 	
 }

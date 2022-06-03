@@ -3,6 +3,8 @@ package com.pts.findInternship.Entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +26,7 @@ public class Candidate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+	@Column(name = "CV",columnDefinition = "VARCHAR(100)")
 	private String CV;
 	@OneToOne
 	@JoinColumn(name = "username")
@@ -33,7 +35,7 @@ public class Candidate {
 	@JoinColumn(name = "MajorId")
 	private Major major;
 	
-	@OneToMany(mappedBy = "candidateCare")
+	@OneToMany(mappedBy = "candidateCare",cascade = CascadeType.ALL)
 	private Set<CareList> careJobs = new HashSet<CareList>();
 	
 }

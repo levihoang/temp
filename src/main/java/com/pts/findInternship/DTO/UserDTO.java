@@ -1,10 +1,8 @@
 package com.pts.findInternship.DTO;
 
-import java.util.Set;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.r2s.findInternship.Entity.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+
 public class UserDTO {
-
 	private String username;
-
-	private Set<RoleDTO> roles;
+	private boolean gender;
+	private String avatar;
+	private String phone;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String status;
+	private Role role;
+	private MultipartFile fileAvatar;
 }

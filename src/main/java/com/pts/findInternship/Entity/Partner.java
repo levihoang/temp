@@ -3,6 +3,8 @@ package com.pts.findInternship.Entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,10 +27,11 @@ public class Partner {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "position",columnDefinition = "NVARCHAR(100)")
 	private String position;
 	@OneToOne
 	@JoinColumn(name = "username")
 	private User user;
-	@OneToMany(mappedBy = "partner",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "partner",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Set<DemandUni> demandUni = new HashSet<DemandUni>();
 }
