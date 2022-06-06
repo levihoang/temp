@@ -8,4 +8,5 @@ import com.r2s.findInternship.Entity.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 	boolean existsByName(String name);
+	Role findByName(String name);
 }

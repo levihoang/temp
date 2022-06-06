@@ -1,9 +1,15 @@
 package com.r2s.findInternship.Exception;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
 public class ExceptionHandling {
@@ -26,5 +32,19 @@ public class ExceptionHandling {
 	public ResponeMessage handlerExceptionCustom(ExceptionCustom ex)
 	{
 		return new ResponeMessage(401, ex.getMessage());
+	}
+	@ExceptionHandler(value = MethodArgumentNotValidException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public  Map<String, String> handlerValidation(MethodArgumentNotValidException ex)
+	{
+		Map<String, String> maps = new HashMap<String, String>();
+		ex.getBindingResult().getAllErrors().forEach(
+				(error) -> {
+					String field = ((FieldError)error).getField();
+					String msg = error.getDefaultMessage();
+					maps.put(field, msg);
+				}
+				);
+		return maps;
 	}
 }

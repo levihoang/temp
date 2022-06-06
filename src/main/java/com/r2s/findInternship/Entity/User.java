@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +26,8 @@ public class User {
 	private String username;
 	@Column(name = "password",nullable = false, columnDefinition = "VARCHAR(20)")
 	private String password;
-	private boolean gender;
+	@Column(name = "gender",columnDefinition = "TINYINT")
+	private int gender;
 	@Column(name = "avatar",columnDefinition = "VARCHAR(50)")
 	private String avatar;
 	@Column(name = "phone",columnDefinition = "VARCHAR(10)")

@@ -16,7 +16,7 @@ public class MapperUserImpl implements MapperUser{
 		u.setAvatar(dto.getAvatar());
 		u.setEmail(dto.getEmail());
 		u.setFirstName(dto.getFirstName());
-		u.setGender(dto.isGender());
+		/* u.setGender(dto.isGender()); */
 		u.setRole(dto.getRole());
 		u.setUsername(dto.getUsername());
 		u.setStatus(dto.getStatus());
@@ -32,7 +32,7 @@ public class MapperUserImpl implements MapperUser{
 		u.setAvatar(dto.getAvatar());
 		u.setEmail(dto.getEmail());
 		u.setFirstName(dto.getFirstName());
-		u.setGender(dto.isGender());
+//		u.setGender(dto.isGender());
 		u.setRole(dto.getRole()); 
 		u.setUsername(dto.getUsername());
 		u.setStatus(dto.getStatus());
@@ -48,6 +48,7 @@ public class MapperUserImpl implements MapperUser{
 		user.setUsername(dto.getUsername());
 		user.setPassword(dto.getPassword());
 		user.setRole(dto.getRole());
+		user.setEmail(dto.getEmail());
 		return user;
 	}
 

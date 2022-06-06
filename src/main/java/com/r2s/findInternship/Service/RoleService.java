@@ -16,5 +16,7 @@ public interface RoleService {
 	List<Role> findAll();
 
 	<S extends Role> S save(S entity);
+	
+	Role findByName(String name);
 
 }

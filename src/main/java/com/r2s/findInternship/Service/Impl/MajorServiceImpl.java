@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.r2s.findInternship.DTO.MajorDTO;
 import com.r2s.findInternship.Entity.Major;
+import com.r2s.findInternship.Entity.Role;
 import com.r2s.findInternship.Exception.InternalServerErrorException;
 import com.r2s.findInternship.Exception.ResourceNotFound;
 import com.r2s.findInternship.MapStructMapper.MapperMajor;
@@ -94,6 +95,7 @@ public class MajorServiceImpl implements MajorService {
 	public boolean existsByName(String name) {
 		return majorRepository.existsByName(name);
 	}
+	
 	
 
 }
