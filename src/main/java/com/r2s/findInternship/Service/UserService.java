@@ -13,13 +13,9 @@ import com.r2s.findInternship.Entity.User;
 public interface UserService extends UserDetailsService {
 
 	boolean existsById(String id);
-
 	List<UserDTO> findAll();
-
 	UserDTO save(UserCreationDTO entity);
-
 	User findByUsername(String username);
-
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
 }

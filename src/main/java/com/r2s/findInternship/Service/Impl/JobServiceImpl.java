@@ -31,7 +31,6 @@ public class JobServiceImpl implements JobService {
 	private JobPositionService jobPositionService;
 	@Autowired
 	private MajorRepository majorRepository;
-
 	@Override
 	public JobDTO save(JobDTO entity) {
 		JobPosition jobPosition = this.jobPositionService.findById(entity.getJobposition().getId())
@@ -62,7 +61,7 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public JobDTO findById(Integer id) {
 		return this.mapperJob.map(
-				jobRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Job not found with id: " + id)));
+				jobRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Job","id",String.valueOf(id))));
 	}
 
 	@Override
@@ -77,7 +76,7 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public void deleteById(Integer id) {
-		if(!this.existsById(id)) throw new ResolutionException("Job not found wiht id: " + id);
+		if(!this.existsById(id)) throw new ResourceNotFound("Job","id",String.valueOf(id));
 		jobRepository.deleteById(id);
 	}
 
@@ -89,7 +88,7 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public JobDTO update(int id, JobDTO entity) {
-		Job jobOld = jobRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Job not found with id: " + id));
+		Job jobOld = jobRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Job","id",String.valueOf(id)));
 		Job current = this.mapperJob.map(entity);
 		current.setId(jobOld.getId());
 		return this.mapperJob.map(this.jobRepository.save(current));

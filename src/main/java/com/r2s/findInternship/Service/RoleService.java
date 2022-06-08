@@ -11,7 +11,7 @@ public interface RoleService {
 
 	Role getById(Integer id);
 
-	Optional<Role> findById(Integer id);
+	Role findById(Integer id);
 
 	List<Role> findAll();
 

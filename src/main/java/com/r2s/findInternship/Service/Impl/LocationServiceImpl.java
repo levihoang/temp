@@ -31,7 +31,7 @@ public class LocationServiceImpl implements LocationService {
 
 	@Override
 	public Location findById(Integer id) {
-		return locationRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Location not found with id:" + id));
+		return locationRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Location","id",String.valueOf(id)));
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class LocationServiceImpl implements LocationService {
 
 	@Override
 	public void deleteById(Integer id) {
-		if(!this.existsById(id)) throw new ResourceNotFound("Location not found with id:" + id);
+		if(!this.existsById(id)) throw new ResourceNotFound("Location","id",String.valueOf(id));
 		locationRepository.deleteById(id);
 	}
 	

@@ -89,7 +89,7 @@ public class MajorServiceImpl implements MajorService {
 	@Override
 	public Major getById(Integer id) {
 
-		return majorRepository.findById(id).orElseThrow(()-> new ResourceNotFound("Major not found with id: " + id));
+		return majorRepository.findById(id).orElseThrow(()-> new ResourceNotFound("Major","id",String.valueOf(id)));
 	}
 
 	public boolean existsByName(String name) {

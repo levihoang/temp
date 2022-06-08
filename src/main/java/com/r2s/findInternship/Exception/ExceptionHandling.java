@@ -3,12 +3,14 @@ package com.r2s.findInternship.Exception;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
@@ -18,7 +20,7 @@ public class ExceptionHandling {
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ResponeMessage handlerNotFound(ResourceNotFound ex)
 	{
-		return new ResponeMessage(404, ex.getMessage());
+		return new ResponeMessage(404, ex.toString());
 	}
 	//Exception with SQL
 	@ExceptionHandler(value = InternalServerErrorException.class)
@@ -47,4 +49,10 @@ public class ExceptionHandling {
 				);
 		return maps;
 	}
+//	@ExceptionHandler(value = Exception.class)
+//	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+//	public ResponeMessage handlerNotFound(NotFoundException ex)
+//	{
+//		return new ResponeMessage(404, "PAGE NOT FOUND!");
+//	}
 }

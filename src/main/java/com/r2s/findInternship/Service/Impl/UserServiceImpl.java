@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.ResourceClosedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,10 +20,12 @@ import com.r2s.findInternship.DTO.UserCreationDTO;
 import com.r2s.findInternship.DTO.UserDTO;
 import com.r2s.findInternship.Entity.User;
 import com.r2s.findInternship.Exception.InternalServerErrorException;
+import com.r2s.findInternship.Exception.ResourceNotFound;
 import com.r2s.findInternship.MapStructMapper.MapperUser;
 import com.r2s.findInternship.Repository.UserRepository;
 import com.r2s.findInternship.Service.RoleService;
 import com.r2s.findInternship.Service.UserService;
+import com.r2s.findInternship.Util.Validation;
 @Service("userDetailsService")
 public class UserServiceImpl implements UserService {
 	@Autowired
@@ -33,6 +36,8 @@ public class UserServiceImpl implements UserService {
 	private MapperUser mapperUser;
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private Validation validation;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = findByUsername(username);
@@ -55,6 +60,7 @@ public class UserServiceImpl implements UserService {
 		{
 			throw new InternalServerErrorException("Password doesn't match");
 		}
+		if(!this.validation.passwordValid(entity.getPassword())) throw new InternalServerErrorException("Password is not secure!");//Valid password
 		if(existsByEmail(entity.getEmail())) throw new InternalServerErrorException("Email is existed!");//CHECK EMAIL
 		if(existsById(entity.getUsername())) throw new InternalServerErrorException("Username is existed!");//CHECK USERNAME
 		User user = this.mapperUser.mapUser(entity);
@@ -62,7 +68,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(this.passwordEncoder.encode(pass));
 		user.setCreateDate(LocalDate.now());
 		user.setStatus("Not avilable");
-		user.setRole(this.roleService.findByName("Role_Candidate"));//Default set role Candidate
+		user.setRole(this.roleService.findById(entity.getRole().getId()));//Default set role Candidate
 		
 		return this.mapperUser.mapUser(this.userRepository.save(user));
 	}

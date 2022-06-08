@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.r2s.findInternship.Entity.Role;
 import com.r2s.findInternship.Exception.InternalServerErrorException;
+import com.r2s.findInternship.Exception.ResourceNotFound;
 import com.r2s.findInternship.Repository.RoleRepository;
 import com.r2s.findInternship.Service.RoleService;
 @Service
@@ -27,22 +28,19 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Optional<Role> findById(Integer id) {
-		return roleRepository.findById(id);
+	public Role findById(Integer id) {
+		return roleRepository.findById(id).orElseThrow(()-> new ResourceNotFound("Role","id",String.valueOf(id)));
 	}
-
 	@Override
 	public Role getById(Integer id) {
 		return roleRepository.getById(id);
 	}
-
 	@Override
 	public boolean existsByName(String name) {
 		return roleRepository.existsByName(name);
 	}
 	@Override
 	public Role findByName(String name) {
-		return this.roleRepository.findByName(name);
+		return this.roleRepository.findByName(name).orElseThrow(() -> new ResourceNotFound("Role","name",name));
 	}
-	
 }
