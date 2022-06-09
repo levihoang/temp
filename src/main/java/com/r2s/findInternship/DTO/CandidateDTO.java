@@ -29,5 +29,6 @@ public class CandidateDTO {
 	private UserDTO user;
 	private MajorDTO major;
 	private Set<CareListDTO> careJobs = new HashSet<CareListDTO>();
+	private UserCreationDTO createUser;
 	
 }

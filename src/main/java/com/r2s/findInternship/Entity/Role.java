@@ -16,6 +16,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Role")
 public class Role {
+	public static final String candidate = "Role_Candidate";
+	public static final String admin = "Role_Admin";
+	public static final String hr = "Role_HR";
+	public static final String partner = "Role_Partner";
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id",columnDefinition = "INT(10)")

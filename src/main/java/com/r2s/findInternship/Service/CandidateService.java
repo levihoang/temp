@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Example;
 
 import com.r2s.findInternship.DTO.CandidateDTO;
+import com.r2s.findInternship.DTO.UserCreationDTO;
 import com.r2s.findInternship.Entity.Candidate;
 
 public interface CandidateService {

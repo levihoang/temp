@@ -14,8 +14,9 @@ public interface UserService extends UserDetailsService {
 
 	boolean existsById(String id);
 	List<UserDTO> findAll();
-	UserDTO save(UserCreationDTO entity);
 	User findByUsername(String username);
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+	UserDTO update (UserCreationDTO user);
+	UserCreationDTO handlerValid(UserCreationDTO entity);
 
 }
