@@ -2,6 +2,7 @@ package com.r2s.findInternship.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,5 +19,7 @@ public interface UserService extends UserDetailsService {
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 	UserDTO update (UserCreationDTO user);
 	UserCreationDTO handlerValid(UserCreationDTO entity);
+	List<User> findAll(Sort sort);
+	List<UserDTO> findAll(int no);
 
 }

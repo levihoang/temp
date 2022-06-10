@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 import org.hibernate.ResourceClosedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,12 +47,14 @@ public class UserServiceImpl implements UserService {
 	private RoleService roleService;
 	@Autowired
 	private Validation validation;
+	@Autowired
+	private MessageSource messageSource;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = findByUsername(username);
 		if(user == null)
 		{
-			 throw new UsernameNotFoundException("Username không tồn tại!");
+			 throw new UsernameNotFoundException(messageSource.getMessage("error.usernameIncorrect", null, null));
 		}
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
@@ -63,11 +69,11 @@ public class UserServiceImpl implements UserService {
 	public UserCreationDTO handlerValid(UserCreationDTO entity) {
 		if(!entity.getPassword().equals(entity.getConfirmPassword()))
 		{
-			throw new InternalServerErrorException("Mật khẩu không khớp!");
+			throw new InternalServerErrorException(messageSource.getMessage("error.passwordIncorrect", null, null));
 		}
-		if(!this.validation.passwordValid(entity.getPassword())) throw new InternalServerErrorException("Mật khẩu phải chứa ký tự HOA, thường và số!");//Valid password
-		if(existsByEmail(entity.getEmail())) throw new InternalServerErrorException("Email đã tồn tại, vui lòng nhập email khác!");//CHECK EMAIL
-		if(existsById(entity.getUsername())) throw new InternalServerErrorException("Username đã tồn tại, vui lòng nhập username khác");//CHECK USERNAME
+		if(!this.validation.passwordValid(entity.getPassword())) throw new InternalServerErrorException(messageSource.getMessage("error.passwordRegex", null, null));//Valid password
+		if(existsByEmail(entity.getEmail())) throw new InternalServerErrorException(messageSource.getMessage("error.emailExists", null,null));//CHECK EMAIL
+		if(existsById(entity.getUsername())) throw new InternalServerErrorException(messageSource.getMessage("error.usernameExists", null, null));//CHECK USERNAME
 		return entity;
 	}
 	@Override
@@ -95,8 +101,17 @@ public class UserServiceImpl implements UserService {
 			//FILE
 			entity.setRole(this.roleService.findById(user.getRole().getId()));//Default set role Candidate
 			return this.mapperUser.mapUser(this.userRepository.save(entity));
+	}
+	@Override
+	public List<UserDTO> findAll(int no) {
+		System.out.println(no);
+		Pageable page = PageRequest.of(no, 10);
+		return this.userRepository.findAll(page).toList().stream().map(item -> this.mapperUser.mapUser(item)).collect(Collectors.toList());
 		
-
+	}
+	@Override
+	public List<User> findAll(Sort sort) {
+		return userRepository.findAll(sort);
 	}
 
 	
